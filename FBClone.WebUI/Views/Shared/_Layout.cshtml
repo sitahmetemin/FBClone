@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/signalr/hubs"></script>
+
+</head>
+<body>
+@*<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>@Html.ActionLink("About", "About", "Home")</li>
+                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
+    </div>
+</div>*@
+
+<nav class=" fixed-top navbar navbar-expand-lg navbar-light" style="background-color: #4267b2;">
+    <div class="container">
+        <a class="navbar-brand yazi-nav" href="/home">FBClone</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <form class="form-inline" action="/home/search" method="post">
+            <div class="input-group">
+                <input type="text" name="Search" required="required" class="form-control" placeholder="Something search">
+                <div class="input-group-append">
+                    <button class="btn btn-light" type="submit" id="button-addon2">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link yazi-nav" href="/user">
+                        <img height="30px" class="rounded-circle" src="http://keenthemes.com/preview/metronic/theme/assets/pages/media/profile/profile_user.jpg" alt="Alternate Text"/> @Session["DisplayName"]
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link  yazi-nav" href="/home">Home Page</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " href="">
+                        <i class="fa fa-user"></i>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " href="/Message/index">
+                        <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " href="#">
+                        <i class="fa fa-bell"></i>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-cog"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Ayarlar</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/Home/Logout">Çıkış Yap</a>
+                    </div>
+                </li>
+                @*<li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        </li>*@
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<div class="container body-content">
+    <div class="row">
+        <div class="col-md-2">
+            @Html.Action("Profile", "Home")
+        </div>
+        <div class="col-md-7">
+            @RenderBody()
+        </div>
+        <div class="col-md-3">
+            @Html.Partial("Cards")
+        </div>
+    </div>
+
+
+    <footer class="fixed-bottom">
+        <div class="d-flex justify-content-end ">
+            <div class="col-2">
+                <div class="card yazi-nav" style="background-color: #4267b2">
+                    <div class=" text-center">
+                        Sohbet
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </footer>
+</div>
+
+
+@RenderSection("scripts", required: false)
+</body>
+</html>

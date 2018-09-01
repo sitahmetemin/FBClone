@@ -1,0 +1,54 @@
+﻿@model FBClone.WebUI.Models.UserViewModels
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container ">
+    <div class="card">
+        <div class="card-header">
+            Aranan Kelime: @ViewBag.SearchKey
+        </div>
+    </div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                <i class="fa fa-users"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            @foreach (var user in Model.Users)
+            {
+                <div class="card mb-1">
+                    <div class="card-header">
+                        <a href="/user/profile/@user.Id">
+                            <img src="http://keenthemes.com/preview/metronic/theme/assets/pages/media/profile/profile_user.jpg" class="img-thumbnail" width="50px" alt="Alternate Text"/>
+                            @user.FirstName  @user.LastName - @user.DisplayName 
+                        </a>
+                        <a class="btn btn-outline-primary" href="/user/FriendAdd/@user.Id"><i class="fa fa-plus"></i> &nbsp; Ekle</a>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            @foreach (var shares in Model.Shareds)
+            {
+                <div class="card mb-3">
+                    <div class="card-header">
+                        @shares.User.DisplayName
+                    </div>
+                    <div class="card-body">
+                        @shares.Content
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+﻿
+@foreach (var shared in Model.Shareds)
+{
+    <div class="card shadow mb-2">
+        <div class="card-header">
+            <img src="http://keenthemes.com/preview/metronic/theme/assets/pages/media/profile/profile_user.jpg" class="rounded-circle" width="30px" alt="Alternate Text"/>
+            @shared.User.DisplayName
+        </div>
+        <div class="card-body">
+            @shared.Content
+        </div>
+        <div class="card-footer">
+            <div class="btn-group d-flex" role="group" aria-label="Basic example">
+                <a href="/Home/like/@shared.Id" class="btn btn-light flex-fill">
+                    <i class="fa fa-heart-o"></i>
+                </a>
+                <a href="/user/share/@shared.Id" class="btn btn-light flex-fill">
+                    <i class="fa fa-share-square-o"></i>
+                </a>
+                <a href="/user/comment/@shared.Id" class="btn btn-light flex-fill">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,15 @@
+﻿@foreach (var friend in Model.Friends)
+{
+    foreach (var user in Model.Users)
+    {
+        if (friend.FriendId == user.Id)
+        {
+            <div class="card shadow mb-2">
+                <div class="card-header">
+                    <img src="http://keenthemes.com/preview/metronic/theme/assets/pages/media/profile/profile_user.jpg" class="rounded-circle" width="30px" alt="Alternate Text"/>
+                    @user.DisplayName
+                </div>
+            </div>
+        }
+    }
+}

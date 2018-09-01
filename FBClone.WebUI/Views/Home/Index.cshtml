@@ -1,0 +1,105 @@
+﻿@model FBClone.WebUI.Models.UserViewModels
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        Paylaş
+    </div>
+    <form action="/Home/Shared" class="form-group" method="post">
+        <div class="card-body">
+            <input type="text" name="Content" placeholder="Something shared" class="form-control mb-3"/>
+            <button class="float-right btn btn-primary" type="submit">
+                <i class="fa fa-send"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
+@foreach (var shared in ViewBag.liste)
+{
+    <div class="card shadow mb-2">
+        <div class="card-header">
+            <img src="http://keenthemes.com/preview/metronic/theme/assets/pages/media/profile/profile_user.jpg" class="img-thumbnail rounded-circle" width="50px"/>
+            <a href="/user/profile/@shared.User.Id">@shared.User.DisplayName</a>
+            <br/>
+            <div class="pull-right">
+                @shared.CreatedAt
+            </div>
+        </div>
+        <div class="card-body">
+            @shared.Content
+        </div>
+        <div id="commentBody-@shared.Id" class="card-body">
+            
+            <div id="commentBox" class="input-group mb-3 ">
+                <input id="commentInput-@shared.Id"  placeholder="Comment" type="text" class="form-control" />
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" id="btnGonder">
+                        <i class="fa fa-send"></i>
+                    </button>
+                </div>
+            </div>
+            <ul id="commentList-@shared.Id" class="noktasiz">
+            </ul>
+        </div>
+        <div class="card-footer">
+            <div class="btn-group d-flex" role="group" aria-label="Basic example">
+                <a href="/Home/like/@shared.Id" class="btn btn-light flex-fill">
+                    <i class="fa fa-heart-o"></i>
+                </a>
+                <button href="/Home/share/@shared.Id" class="btn btn-light flex-fill">
+                    <i class="fa fa-share-square-o"></i>
+                </button>
+                <button  id="comment" data-id="@shared.Id" class="btn btn-light flex-fill">
+                    <i class="fa fa-comment-o"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    
+    $(document).ready(function () {
+        $("#commentBox.input-group").slideUp();
+        $("#comment, button").on("click", function () {
+            var sharedID = $(this).attr("data-id");
+            $("#commentBody-" + sharedID + " > div").slideDown();
+
+            $.ajax({
+                url: "/Home/ShareGetComment/?sharedID=" + sharedID,
+                type: "POST",
+                success: function (response) {
+                    $.each(response, function( index, value ) {
+                        $("#commentList-" + sharedID).append('<li class="alert alert-secondary">' + value.SharedComment + '</li>');
+                    });
+                    
+                },
+                error: function (response) {
+                    
+                    console.log(response);
+                }
+            });
+
+            gonderButonu(sharedID);
+        });
+
+        function gonderButonu(sharedID) {
+            $("#btnGonder.btn").on("click", function () {
+                var inputMessage = $("#commentInput-" + sharedID).val();
+                var bilgiler = {mesaj : inputMessage, paylasimID : sharedID}
+                $.ajax({
+                    url: "/Home/ShareCommentAdd/" + sharedID,
+                    type: "POST",
+                    data: bilgiler,
+                    success: function (result) {
+                        $("#commentList-" + sharedID).append('<li class="alert alert-secondary">' + inputMessage + '</li>');
+                    }
+                });
+            });
+        }
+        
+
+    })
+</script>

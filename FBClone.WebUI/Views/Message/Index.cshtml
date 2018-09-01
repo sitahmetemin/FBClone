@@ -1,0 +1,127 @@
+﻿@model FBClone.WebUI.Models.UserViewModels
+@{
+    ViewBag.Title = "Message";
+    Layout = "~/Views/Shared/_LayoutProfil.cshtml";
+    int i = 0;
+    int x = 0;
+}
+
+
+<div class=" body-content " style="height: 600px">
+    <div class="card h-100 ">
+        <div class="card-header">
+            Messages
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-3">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        @foreach (var friend in Model.Friends)
+                        {
+                            foreach (var user in Model.Users)
+                            {
+                                if (friend.FriendId == user.Id)
+                                {
+                                    <a class="nav-link secimClası @(i == 0 ? "active" : null)" id="v-pills-home-tab" data-toggle="pill" href="#@user.DisplayName" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                                        @user.DisplayName <input type="hidden" id="friendID" value="@user.Id"/>
+                                    </a>
+                                }
+                            }
+                            i++;
+                        }
+                    </div>
+                </div>
+                <div class="col-9">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        @foreach (var friend in Model.Friends)
+                        {
+                            foreach (var message in ViewBag.liste)
+                            {
+                                    <div class="tab-pane fade @(x == 0 ? "show active" : null)" id="@message.Friend.DisplayName" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                        <input type="hidden" value="@message.Friend.Id-@message.Friend.DisplayName-@Session["ID"]"/>
+                                        <div id="chatList">
+                                            <div class="alert alert-primary">
+                                                @message.MessageContent
+                                            </div>
+                                        </div>
+                                    </div>
+                                    x++;
+                                    
+                            }
+                        }
+
+                        <div class="input-group mb-3 ">
+                            <input type="text" id="MessageContent" class="form-control" placeholder="Message here">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" id="btnGonder">
+                                    <i class="fa fa-send"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function() {
+
+
+        $(document).on("click",
+            ".secimClası",
+            function(e) {
+                var friendID = $(".active > #friendID").val();
+                e.preventDefault();
+                $.ajax(
+                    {
+                        url: '/Message/GetMessageAjax/?friendID=' + friendID,
+                        type: 'GET',
+                        success: function (result) {
+                            //$(".show > #chatList").append("<div class='alert alert-secondary'>" + result + "</div>");
+
+                            $(result).each(function(index, item) {
+                                console.log(item.MessageContent);
+                                $(".show > #chatList").append("<div class='alert alert-secondary'>" +
+                                    item.MessageContent +
+                                    "</div>");
+                            });
+                        }
+                        //error: function(hata) {
+                        //    console.log('hatada');
+                        //    console.log(hata);
+                        //}
+                    });
+
+            });
+
+
+        $.connection.hub.start();
+        var chat = $.connection.chatHub;
+
+        chat.client.getMessageOther = function(FriendId, FriendDisplayName, Message) {
+            $(".show > #chatList")
+                .append("<div class='alert alert-primary'>" + FriendDisplayName + ":" + Message + "</div>");
+        };
+
+        chat.client.getMessageCaller = function(Message) {
+            //$(".show > #chatList").append("<div class='alert alert-secondary'>" + Message + "</div>");
+        };
+
+        $("#btnGonder").click(function() {
+            var UserInfo = $(".show > input").val();
+            var MessageContent = $("#MessageContent").val();
+            var Friend = UserInfo.split("-");
+            chat.server.sendMessage(Friend[0], Friend[1], MessageContent, Friend[2]);
+            $(".show #chatList").append("<div class='alert alert-secondary'>" + MessageContent + "</div>");
+            $("#MessageContent").val(" ");
+        });
+
+
+    });
+
+</script>

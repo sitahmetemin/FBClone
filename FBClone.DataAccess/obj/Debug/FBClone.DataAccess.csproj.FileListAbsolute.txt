@@ -1,0 +1,17 @@
+C:\Users\devpc\source\repos\FBClone\FBClone.DataAccess\bin\Debug\FBClone.DataAccess.dll
+C:\Users\devpc\source\repos\FBClone\FBClone.DataAccess\bin\Debug\FBClone.DataAccess.pdb
+C:\Users\devpc\source\repos\FBClone\FBClone.DataAccess\obj\Debug\FBClone.DataAccess.csprojAssemblyReference.cache
+C:\Users\devpc\source\repos\FBClone\FBClone.DataAccess\obj\Debug\FBClone.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\devpc\source\repos\FBClone\FBClone.DataAccess\obj\Debug\FBClone.DataAccess.dll
+C:\Users\devpc\source\repos\FBClone\FBClone.DataAccess\obj\Debug\FBClone.DataAccess.pdb
+C:\Users\devpc\source\repos\FBClone\FBClone.DataAccess\bin\Debug\FBClone.DataAccess.dll.config
+C:\Users\devpc\source\repos\FBClone\FBClone.DataAccess\bin\Debug\EntityFramework.dll
+C:\Users\devpc\source\repos\FBClone\FBClone.DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\devpc\source\repos\FBClone\FBClone.DataAccess\bin\Debug\EntityFramework.xml
+C:\Users\devpc\source\repos\FBClone\FBClone.DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\devpc\source\repos\FBClone\FBClone.DataAccess\obj\Debug\FBClone.DataAccess.csproj.CopyComplete
+C:\Users\devpc\source\repos\FBClone\FBClone.DataAccess\obj\Debug\FBClone.DataAccess.Migrations.tamBir.resources
+C:\Users\devpc\source\repos\FBClone\FBClone.DataAccess\obj\Debug\FBClone.DataAccess.csproj.GenerateResource.cache
+C:\Users\devpc\source\repos\FBClone\FBClone.DataAccess\obj\Debug\FBClone.DataAccess.Migrations.AddLike.resources
+C:\Users\devpc\source\repos\FBClone\FBClone.DataAccess\obj\Debug\FBClone.DataAccess.Migrations.UserEdit.resources
+C:\Users\devpc\source\repos\FBClone\FBClone.DataAccess\obj\Debug\FBClone.DataAccess.Migrations.CommentAdd.resources
